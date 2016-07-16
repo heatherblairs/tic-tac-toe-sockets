@@ -12,15 +12,15 @@ describe('TicTacToe', () => {
     it('should have an empty board', () => {
       expect(game.board).to.deep.equal([])
     })
-    xit('should have the turn default to 1', () => {
+    it('should have the turn default to 1', () => {
       expect(game.turn).to.equal(1)
     })
-    xit('should have the over status to false and message say in progress', () => {
+    it('should have the over status to false and message say in progress', () => {
       expect(game.status.over).to.equal(false)
       expect(game.status.message).to.equal("Blank Game")
     })
   })
-  xdescribe('Reset', () => {
+  describe('Reset', () => {
     before( () => {
       game = new TicTacToe()
       game.turn = 2
@@ -34,7 +34,7 @@ describe('TicTacToe', () => {
       expect(game.status.message).to.equal("Blank Game")
     })
   })
-  xdescribe('CreateGame', () => {
+  describe('CreateGame', () => {
     beforeEach( () => {
       game = new TicTacToe()
     })
@@ -69,7 +69,7 @@ describe('TicTacToe', () => {
       expect(game.board).to.deep.equal(board)
     })
   })
-  xdescribe('Move', () => {
+  describe('Move', () => {
     beforeEach(() => {
       game = new TicTacToe()
       let dimensions = {cols: 3, rows: 3}
@@ -88,18 +88,26 @@ describe('TicTacToe', () => {
       expect(game.board).to.deep.equal([[0,0,0],[1,0,0],[0,0,2]])
     })
   })
-  xdescribe('isComplete', () => {
-    before(() => {
+  describe('isComplete', () => {
+    beforeEach(() => {
       game = new TicTacToe()
+      let dimensions = {cols: 3, rows: 3}
+      game.createGame(dimensions)
     })
     it('should check if the board is full', () => {
-      // add test
+      game.fullBoardCheck(game.board);
+      expect(game.status.message).to.equal('Game in Progress')
+      expect(game.status.over).to.equal(false)
     })
     it('should change the over status of the game to true if complete', () => {
-      // add test
+      game.board = [[1,1,1],[2,2,2],[1,2,1]];
+      game.fullBoardCheck(game.board);
+      expect(game.status.over).to.equal(true);
     })
     it('should change the message status of the game to full if complete', () => {
-      // add test
+      game.board = [[1,1,1],[2,2,2],[1,2,1]];
+      game.fullBoardCheck(game.board);
+      expect(game.status.message).to.equal('Game Board is Full')
     })
   })
   // STRETCH
